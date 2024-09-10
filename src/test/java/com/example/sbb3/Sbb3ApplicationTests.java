@@ -1,11 +1,15 @@
 package com.example.sbb3;
 
+import com.example.sbb3.answer.Answer;
+import com.example.sbb3.answer.AnswerRepository;
 import com.example.sbb3.question.Question;
 import com.example.sbb3.question.QuestionRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -16,7 +20,10 @@ class Sbb3ApplicationTests {
 
 	@Autowired
 	QuestionRepository questionRepository;
+	@Autowired
+	AnswerRepository answerRepository;
 
+	@Transactional
 	@Test
 	void testJPA() {
 //		Question q1 = new Question();
@@ -64,12 +71,37 @@ class Sbb3ApplicationTests {
 //			this.questionRepository.save(q7);
 
 			//질문데이터 삭제
-		assertEquals(2,this.questionRepository.count());
-		Optional<Question> oq2 = this.questionRepository.findById(1);
-		assertTrue(oq2.isPresent());
-		Question q8 = oq2.get();
-		this.questionRepository.delete(q8);
-		assertEquals(1, this.questionRepository.count());
+//		assertEquals(2,this.questionRepository.count());
+//		Optional<Question> oq2 = this.questionRepository.findById(1);
+//		assertTrue(oq2.isPresent());
+//		Question q8 = oq2.get();
+//		this.questionRepository.delete(q8);
+//		assertEquals(1, this.questionRepository.count());
+
+//		Optional<Question> q = this.questionRepository.findById(2);
+//		assertTrue(q.isPresent());
+//		Question question = q.get();
+//
+//		Answer answer = new Answer();
+//		answer.setQuestion(question);
+//		answer.setContent("테스트 답변1");
+//		answer.setCreateDate(LocalDateTime.now());
+//		this.answerRepository.save(answer);
+
+		Optional<Answer> a = this.answerRepository.findById(1);
+		assertTrue(a.isPresent());
+		Answer answer = a.get();
+		assertEquals(2, answer.getQuestion().getId());
+//------------------------------------------------
+		Optional<Question> oq = this.questionRepository.findById(2);
+		assertTrue(oq.isPresent());
+		Question q = oq.get();
+
+		List<Answer> answerList = q.getAnswerList();
+		assertEquals(1, answerList.size());
+		assertEquals("테스트 답변",answerList.get(0).getContent());
+
+
 		}
 
 	}
