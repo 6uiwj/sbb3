@@ -14,8 +14,16 @@ import java.util.List;
 public class QuestionController {
 
     private final QuestionRepository questionRepository;
+
+    /**
+     * 질문 목록을 조회하여 템플릿에 전달하는 메서드
+     * 조회한 객체를 model에 "questionList"라는 이름으로 저장하여 템플릿에 전달
+     * -> 템플릿에서 저장된 이름을 통해 (${questionList}) 출력 가능
+     * @param model
+     * @return
+     */
     @GetMapping("/list")
-    public String list(Integer id, Model model) {
+    public String list(Model model) {
         List<Question> questionList= questionRepository.findAll();
         model.addAttribute("questionList", questionList);
         return "question_list";
