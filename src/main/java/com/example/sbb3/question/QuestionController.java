@@ -13,7 +13,7 @@ import java.util.List;
 @RequestMapping("/question")
 public class QuestionController {
 
-    private final QuestionRepository questionRepository;
+    private final QuestionService questionService;
 
     /**
      * 질문 목록을 조회하여 템플릿에 전달하는 메서드
@@ -24,7 +24,7 @@ public class QuestionController {
      */
     @GetMapping("/list")
     public String list(Model model) {
-        List<Question> questionList= questionRepository.findAll();
+        List<Question> questionList = this.questionService.getList();
         model.addAttribute("questionList", questionList);
         return "question_list";
     }
