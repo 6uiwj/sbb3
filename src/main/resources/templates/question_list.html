@@ -1,5 +1,5 @@
-<link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
-<div class="container my-3">
+<html layout:decorate="~{layout}"> <!--layout.html 파일을 레이아웃 템플릿으로 사용-->
+<div layout:fragment="content" class="container my-3"> <!--부모 템플릿의 body에 들어갈부분 -->
 <table class="table">
     <thead class="table-dark">
     <tr>
@@ -20,3 +20,4 @@
     </tbody>
 </table>
 </div>
+</html>
