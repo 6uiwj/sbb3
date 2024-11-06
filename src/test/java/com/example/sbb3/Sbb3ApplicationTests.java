@@ -1,19 +1,11 @@
 package com.example.sbb3;
 
-import com.example.sbb3.answer.Answer;
 import com.example.sbb3.answer.AnswerRepository;
-import com.example.sbb3.question.Question;
 import com.example.sbb3.question.QuestionRepository;
+import com.example.sbb3.question.QuestionService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 class Sbb3ApplicationTests {
@@ -22,8 +14,10 @@ class Sbb3ApplicationTests {
 	QuestionRepository questionRepository;
 	@Autowired
 	AnswerRepository answerRepository;
+	@Autowired
+	QuestionService questionService;
 
-	@Transactional
+	//@Transactional
 	@Test
 	void testJPA() {
 //		Question q1 = new Question();
@@ -88,20 +82,26 @@ class Sbb3ApplicationTests {
 //		answer.setCreateDate(LocalDateTime.now());
 //		this.answerRepository.save(answer);
 
-		Optional<Answer> a = this.answerRepository.findById(1);
-		assertTrue(a.isPresent());
-		Answer answer = a.get();
-		assertEquals(2, answer.getQuestion().getId());
-//------------------------------------------------
-		Optional<Question> oq = this.questionRepository.findById(2);
-		assertTrue(oq.isPresent());
-		Question q = oq.get();
+//		Optional<Answer> a = this.answerRepository.findById(1);
+//		assertTrue(a.isPresent());
+//		Answer answer = a.get();
+//		assertEquals(2, answer.getQuestion().getId());
+////------------------------------------------------
+//		Optional<Question> oq = this.questionRepository.findById(2);
+//		assertTrue(oq.isPresent());
+//		Question q = oq.get();
+//
+//		List<Answer> answerList = q.getAnswerList();
+//		assertEquals(1, answerList.size());
+//		assertEquals("테스트 답변",answerList.get(0).getContent());
 
-		List<Answer> answerList = q.getAnswerList();
-		assertEquals(1, answerList.size());
-		assertEquals("테스트 답변",answerList.get(0).getContent());
+		//테스트를 위한 대량 데이터 만들기
+		for(int i = 0; i <= 300; i++) {
+			String subject = String.format("테스트 데이터:[%03d]",i);
+			String content = "내용";
+			this.questionService.create(subject,content);
 
-
+		}
 		}
 
 	}
