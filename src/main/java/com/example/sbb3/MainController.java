@@ -12,4 +12,8 @@ public class MainController {
         System.out.println("index");//콘솔에 찍히는 결과
         return "sbb에 오신 것을 환영합니다."; //응답의 결과
     }
+    @GetMapping("/")
+    public String root() {
+        return "redirect:/question/list";
+    }
 }
