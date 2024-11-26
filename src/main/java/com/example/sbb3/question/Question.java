@@ -1,6 +1,7 @@
 package com.example.sbb3.question;
 
 import com.example.sbb3.answer.Answer;
+import com.example.sbb3.user.SiteUser;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,6 +24,9 @@ public class Question {
     private String content;
 
     private LocalDateTime createDate;
+
+    @ManyToOne
+    private SiteUser author;
 
     //부모 쪽에서 관계 설정(mappedBy = 부모엔티티를 참조하는 자식 엔티티의 속성)
     @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
