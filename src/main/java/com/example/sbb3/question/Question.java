@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -29,6 +30,9 @@ public class Question {
 
     @ManyToOne
     private SiteUser author;
+
+    @ManyToMany
+    Set<SiteUser> voter;
 
     //부모 쪽에서 관계 설정(mappedBy = 부모엔티티를 참조하는 자식 엔티티의 속성)
     @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
