@@ -23,7 +23,7 @@
             </div>
             <div class="my-3">
                 <a href="javascript:void(0);"
-                   class = "recommand btn btn-sm btn-outline-secondary"
+                   class = "recommend btn btn-sm btn-outline-secondary"
                    th:data-uri="@{|/question/vote/${question.id}|}">
                     추천
                     <span class="badge rounded-pill bg-success"
@@ -48,6 +48,7 @@
 
     <!--답변 반복 시작-->
 <div class="card my-3" th:each="answer: ${question.answerList}">
+    <a th:id="|answer_${answer.id}|"></a>
     <div class="card-body">
         <div class="card-text" style="white-space: pre-line;"
             th:text="${answer.content}"></div>
@@ -66,6 +67,11 @@
             </div>
         </div>
         <div class = "my-3">
+            <a href="javascript:void(0);" class = "recommend btn btn-sm btn-outline-secondary"
+               th:data-uri="@{|/answer/vote/${answer.id}|}">
+                추천
+                <span class="badge rounded-pill bg-success" th:text="${#lists.size(answer.voter)}"></span>
+            </a>
             <a th:href="@{|/answer/modify/${answer.id}|}" class="btn btn-sm btn-outline-secondary"
                sec:authorize="isAuthenticated()"
                th:if="${answer.author != null and #authentication.getPrincipal().getUsername()
@@ -96,8 +102,8 @@
             };
         });
     });
-    const recommand_elements = document.getElementsByClassName("recommand");
-    Array.from(recommand_elements).forEach(function(element) {
+    const recommend_elements = document.getElementsByClassName("recommend");
+    Array.from(recommend_elements).forEach(function(element) {
         element.addEventListener('click', function() {
             if(confirm ("정말로 추천하시겠습니까?")) {
                 location.href = this.dataset.uri;
