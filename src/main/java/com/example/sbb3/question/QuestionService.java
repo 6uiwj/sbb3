@@ -30,7 +30,11 @@ public class QuestionService {
                 Join<Question, SiteUser> u1 = q.join("author", JoinType.LEFT);
                 Join<Question, Answer> a = q.join("answerList", JoinType.LEFT);
                 Join<Answer, SiteUser> u2 = a.join("author", JoinType.LEFT);
-                return null;
+                return cb.or(cb.like(q.get("subject"), "%" + kw + "%"),
+                        cb.like(q.get("content"), "%" + kw + "%"),
+                        cb.like(u1.get("username"), "%" + kw + "%"),
+                        cb.like(a.get("content"), "%" + kw + "%"),
+                        cb.like(u2.get("username"), "%" + kw + "%"));
             }
         };
     }
@@ -41,7 +45,7 @@ public class QuestionService {
         sorts.add(Sort.Order.desc("createDate"));
         Pageable pageable = PageRequest.of(page,10,Sort.by(sorts));
         Specification<Question> spec = search(kw);
-        return this.questionRepository.findAll(pageable);
+        return this.questionRepository.findAll(spec, pageable);
     }
 
     public Question getQuestion(Integer id) {
