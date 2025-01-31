@@ -50,10 +50,11 @@ MVC의 흐름과 스프링 시큐리티를 이용한 서비스, 로그인 구현
 
 ## 로그인-회원가입
 
+- Spring Security을 이용한 세션 기반 방식 
 - 필수입력사항 검증
 - 회원가입 시 아이디 중복확인 기능
 - 로그인 시 회원정보 확인 기능
-- 
+
 ### - 회원가입
 ![image](https://github.com/user-attachments/assets/9e63e950-88a1-4781-9dda-8350a1d5013a)
 
